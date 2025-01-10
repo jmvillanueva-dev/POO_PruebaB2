@@ -25,11 +25,11 @@ public class Grades {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Double grade1 = Double.parseDouble(calf1.getText());
-                Double grade2 = Double.parseDouble(calf2.getText());
-                Double grade3 = Double.parseDouble(calf3.getText());
-                Double grade4 = Double.parseDouble(calf4.getText());
-                Double grade5 = Double.parseDouble(calf5.getText());
+                Double grade1 = validarRango(calf1.getText());
+                Double grade2 = validarRango(calf2.getText());
+                Double grade3 = validarRango(calf3.getText());
+                Double grade4 = validarRango(calf4.getText());
+                Double grade5 = validarRango(calf5.getText());
 
                 Double promedio = (grade1 + grade2 + grade3 + grade4 + grade5)/5;
                 validacionCalf.setText("El Promedio del estudiante es: " + promedio);
@@ -82,5 +82,17 @@ public class Grades {
                 }
             }
         });
+    }
+
+    private double validarRango(String text) throws IllegalArgumentException {
+        try {
+            double grade = Double.parseDouble(text);
+            if (grade < 0 || grade > 20) {
+                throw new IllegalArgumentException("La calificación debe estar entre 0 y 20: " + text);
+            }
+            return grade;
+        } catch (NumberFormatException ex) {
+            throw new IllegalArgumentException("Entrada no válida: " + text);
+        }
     }
 }
